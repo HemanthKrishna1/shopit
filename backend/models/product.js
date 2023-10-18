@@ -50,40 +50,40 @@ const productSchema = new mongoose.Schema(
         ],
         message: "Please select correct category",
       },
-      seller: {
-        type: String,
-        required: [true, "Please enter product seller"],
-      },
-      stock: {
-        type: Number,
-        required: [true, "Please enter product stock"],
-      },
-      numOfReviews: {
-        type: Number,
-        default: 0,
-      },
-      reviews: [
-        {
-          user: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
-            required: true,
-          },
-          rating: {
-            type: Number,
-            required: true,
-          },
-          comment: {
-            type: String,
-            required: true,
-          },
+    },
+    seller: {
+      type: String,
+      required: [true, "Please enter product seller"],
+    },
+    stock: {
+      type: Number,
+      required: [true, "Please enter product stock"],
+    },
+    numOfReviews: {
+      type: Number,
+      default: 0,
+    },
+    reviews: [
+      {
+        user: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+          required: true,
         },
-      ],
-      user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        required: false,
+        rating: {
+          type: Number,
+          required: true,
+        },
+        comment: {
+          type: String,
+          required: true,
+        },
       },
+    ],
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
   },
   { timestamps: true }
