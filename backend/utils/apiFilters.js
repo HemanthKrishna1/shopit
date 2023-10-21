@@ -19,7 +19,7 @@ class APIFilters {
     return this;
   }
 
-  filetrs() {
+  filters() {
     const queryCopy = { ...this.queryStr };
 
     // Fields to remove

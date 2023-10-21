@@ -6,7 +6,7 @@ import ErrorHandler from "../utils/errorHandler.js";
 // Create new Product  => /api/v1/products
 export const getProducts = catchAsyncErrors(async (req, res) => {
   const resPerPage = 4;
-  const apiFilters = new APIFilters(Product, req.query).search().filetrs();
+  const apiFilters = new APIFilters(Product, req.query).search().filters();
 
   console.log(req?.user);
   let products = await apiFilters.query;
@@ -33,12 +33,13 @@ export const newProduct = catchAsyncErrors(async (req, res) => {
   });
 });
 
-// Get single Product details => /api/v1/admin/products/:id
+// Get single Product details => /api/v1/products/:id
 export const getProductDetails = catchAsyncErrors(async (req, res, next) => {
+  console.log("product: ", req?.params?.id);
   const product = await Product.findById(req?.params?.id);
 
   if (!product) {
-    return next(new ErrorHandler("Product not found", 400));
+    return next(new ErrorHandler("Product not found", 404));
   }
 
   res.status(200).json({
@@ -46,12 +47,12 @@ export const getProductDetails = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-// Update Product details => /api/v1/admin/products/:id
+// Update Product details => /api/v1/products/:id
 export const updateProduct = catchAsyncErrors(async (req, res) => {
   let product = await Product.findById(req?.params?.id);
 
   if (!product) {
-    return next(new ErrorHandler("Product not found", 400));
+    return next(new ErrorHandler("Product not found", 404));
   }
 
   product = await Product.findByIdAndUpdate(req?.params?.id, req.body, {
@@ -63,12 +64,12 @@ export const updateProduct = catchAsyncErrors(async (req, res) => {
   });
 });
 
-// Delete Product  => /api/v1/admin/products/:id
+// Delete Product  => /api/v1/products/:id
 export const deleteProduct = catchAsyncErrors(async (req, res) => {
   let product = await Product.findById(req?.params?.id);
 
   if (!product) {
-    return next(new ErrorHandler("Product not found", 400));
+    return next(new ErrorHandler("Product not found", 404));
   }
 
   await product.deleteOne();

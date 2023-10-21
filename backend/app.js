@@ -8,7 +8,7 @@ import errorMiddleware from "./middlewares/errors.js";
 // Handle Uncaught Exceptions
 process.on("uncaughtException", (err) => {
   console.log(`Error: ${err}`);
-  console.log("Shuting down due to uncaught exception");
+  console.log("Shutting down due to uncaught exception");
   process.exit();
 });
 
@@ -25,9 +25,11 @@ app.use(cookieParser());
 import productRoutes from "./routes/products.js";
 
 import authRoutes from "./routes/auth.js";
+import orderRoutes from "./routes/order.js";
 
 app.use("/api/v1", productRoutes);
 app.use("/api/v1", authRoutes);
+app.use("/api/v1", orderRoutes);
 
 // Using error middleware
 app.use(errorMiddleware);
@@ -41,8 +43,8 @@ const server = app.listen(process.env.PORT, () => {
 // Handle Unhandled Promise Rejection
 process.on("unhandledRejection", (err) => {
   console.log(`Error: ${err}`);
-  console.log("Shutting down sever due to unhandled Promise Rejection");
+  console.log("Shutting down server due to unhandled Promise Rejection");
   server.close(() => {
-    process.exit();
+    process.exit(1);
   });
 });

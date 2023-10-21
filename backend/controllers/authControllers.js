@@ -64,7 +64,7 @@ export const forgotPassword = catchAsyncErrors(async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
 
   if (!user) {
-    return next(new ErrorHandler("User not found", 404));
+    return next(new ErrorHandler("User not found with this email", 404));
   }
 
   // Get Reset Password Token
@@ -112,13 +112,15 @@ export const resetPassword = catchAsyncErrors(async (req, res, next) => {
 
   if (!user) {
     return next(
-      new ErrorHandler("Password reset token is ivalid or has been expired"),
-      400
+      new ErrorHandler(
+        "Password reset token is invalid or has been expired",
+        400
+      )
     );
   }
 
   if (req.body.password !== req.body.confirmPassword) {
-    return next(new ErrorHandler("Password does not match"), 400);
+    return next(new ErrorHandler("Password does not match", 400));
   }
 
   // Set the new password
@@ -173,7 +175,7 @@ export const updateProfile = catchAsyncErrors(async (req, res, next) => {
   res.status(200).json({ user });
 });
 
-// Get all Users => /api/v1/admin/users
+// Get all Users - ADMIN => /api/v1/admin/users
 export const allUsers = catchAsyncErrors(async (req, res, next) => {
   const users = await User.find();
 
@@ -186,7 +188,7 @@ export const getUserDetails = catchAsyncErrors(async (req, res, next) => {
 
   if (!user) {
     return next(
-      new ErrorHandler(`User not found with id: ${req.params.id}`, 400)
+      new ErrorHandler(`User not found with id: ${req.params.id}`, 404)
     );
   }
   res.status(200).json({ user });
