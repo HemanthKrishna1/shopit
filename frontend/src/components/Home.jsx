@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import MetaData from "./layout/MetaData";
 import { useGetProductsQuery } from "../redux/api/productsApi";
-import ProductItem from "./product/productItem";
+import ProductItem from "./product/ProductItem";
 import Loader from "./layout/Loader";
 import toast from "react-hot-toast";
 import CustomPagination from "./layout/CustomPagination";
@@ -21,7 +21,7 @@ const Home = () => {
   const params = { page, keyword };
 
   min !== null && (params.min = min);
-  min !== null && (params.max = max);
+  max !== null && (params.max = max);
   category !== null && (params.category = category);
   ratings !== null && (params.ratings = ratings);
 
@@ -33,7 +33,7 @@ const Home = () => {
     if (isError) {
       toast.error(error?.data?.message);
     }
-  }, [error]);
+  }, [isError]);
 
   if (isLoading) {
     return <Loader />;

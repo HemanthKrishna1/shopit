@@ -20,7 +20,7 @@ const ProductDetails = () => {
         ? product?.images[0]?.url
         : "/images/default_product.png"
     );
-  }, product);
+  }, [product]);
 
   useEffect(() => {
     if (isError) {
