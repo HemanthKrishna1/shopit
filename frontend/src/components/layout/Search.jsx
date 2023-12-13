@@ -15,6 +15,7 @@ const Search = () => {
       navigate("/");
     }
   };
+
   return (
     <form onSubmit={submitHandler}>
       <div className="input-group">

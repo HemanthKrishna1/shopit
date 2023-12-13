@@ -17,7 +17,7 @@ dotenv.config({ path: "backend/config/config.env" });
 // Connecting to Database
 connectDatabase();
 
-app.use(express.json());
+app.use(express.json({ limit: "10mb" }));
 
 app.use(cookieParser());
 
