@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -15,6 +15,14 @@ const Search = () => {
       navigate("/");
     }
   };
+
+  // useEffect(() => {
+  //   if (keyword?.trim()) {
+  //     navigate(`/?keyword=${keyword}`);
+  //   } else {
+  //     navigate("/");
+  //   }
+  // }, [keyword]);
 
   return (
     <form onSubmit={submitHandler}>
